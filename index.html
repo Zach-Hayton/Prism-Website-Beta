@@ -3,13 +3,205 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prism — Real-time Fact-Checking + Bias Detection</title>
-  <meta name="description" content="Prism is a lightweight browser extension that flags questionable claims, highlights potential bias, and links you to better sources—instantly." />
+  <title>Prism — Real-time Misinformation Defense</title>
+  <meta name="description" content="Prism is a lightweight browser extension that flags questionable claims, highlights potential bias, and links you to stronger sources—instantly." />
   <link rel="icon" href="assets/images/prism-logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/prism.css" />
+
+  <!-- Page-only additions (keeps your prism.css untouched) -->
+  <style>
+    .mission{
+      margin: 12px 0 8px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(234,240,255,.85);
+      max-width: 72ch;
+    }
+    .mission strong{
+      color: rgba(234,240,255,.98);
+      font-weight: 800;
+      letter-spacing: -.1px;
+    }
+
+    /* Scrolling photo ribbons */
+    .ribbons{
+      margin-top: 18px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      overflow: hidden;
+      position: relative;
+    }
+    .ribbon{
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      width: max-content;
+      align-items: center;
+      will-change: transform;
+    }
+    .ribbon img{
+      width: 240px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid rgba(234,240,255,.10);
+      opacity: .92;
+      filter: saturate(1.1) contrast(1.05);
+    }
+    .ribbon-row{
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .ribbon-wrap{
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+    }
+    @keyframes slideLeft {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes slideRight {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+    .ribbon.left{ animation: slideLeft 38s linear infinite; }
+    .ribbon.right{ animation: slideRight 44s linear infinite; }
+    .ribbons:before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(900px 240px at 10% 0%, rgba(124,58,237,.18), transparent 60%),
+                  radial-gradient(900px 260px at 80% 100%, rgba(34,211,238,.16), transparent 60%);
+      pointer-events:none;
+    }
+    .ribbon-spacer{ height: 1px; background: rgba(234,240,255,.08); }
+
+    /* Metrics animation polish */
+    .metric .k{
+      display:flex; align-items:baseline; gap:6px;
+    }
+    .metric .k .unit{
+      font-size: 12px;
+      font-weight: 750;
+      color: rgba(234,240,255,.70);
+      letter-spacing: .2px;
+    }
+    .bar{
+      margin-top: 10px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(234,240,255,.10);
+      overflow: hidden;
+      border: 1px solid rgba(234,240,255,.10);
+    }
+    .bar > span{
+      display:block;
+      height: 100%;
+      width: 0%;
+      background: var(--grad);
+      border-radius: 999px;
+      transition: width 1200ms ease;
+    }
+    .note{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(234,240,255,.55);
+      line-height: 1.45;
+    }
+
+    /* How-it-works deep section */
+    .how-deep{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .stack{
+      display:grid; gap: 12px;
+    }
+    .step{
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+    }
+    .step h3{ margin: 0 0 8px; font-size: 16px; }
+    .step p{ margin: 0; color: var(--muted2); line-height: 1.6; font-size: 14px; }
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(234,240,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,240,255,.75);
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .diagram{
+      padding: 18px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .diagram:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 280px at 15% 0%, rgba(249,115,22,.16), transparent 55%),
+                  radial-gradient(650px 300px at 85% 40%, rgba(34,197,94,.14), transparent 55%),
+                  radial-gradient(650px 300px at 55% 95%, rgba(124,58,237,.18), transparent 55%);
+      pointer-events:none;
+    }
+    .diagram .node{
+      position: relative;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(234,240,255,.12);
+      background: rgba(11,16,32,.55);
+      margin-bottom: 10px;
+    }
+    .diagram .node:last-child{ margin-bottom: 0; }
+    .diagram .node strong{ display:block; font-size: 13px; }
+    .diagram .node span{ display:block; font-size: 12px; color: rgba(234,240,255,.60); margin-top: 4px; line-height: 1.45; }
+
+    /* Team headshots */
+    .avatar-img{
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid rgba(234,240,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Bottom CTA */
+    .cta{
+      padding: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .cta p{ margin: 0; color: var(--muted); line-height: 1.6; max-width: 78ch; }
+    .cta-actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+    @media (max-width: 920px){
+      .how-deep{ grid-template-columns: 1fr; }
+      .ribbon img{ width: 210px; height: 128px; }
+    }
+  </style>
 </head>
+
 <body>
-  <!-- NAV -->
+  <!-- NAV (no apply button here; just links) -->
   <header class="nav">
     <div class="container">
       <div class="nav-inner">
@@ -18,93 +210,194 @@
           <span>Prism</span>
         </a>
         <nav class="nav-links" aria-label="Primary">
+          <a href="#mission">Mission</a>
           <a href="#how">How it works</a>
           <a href="#compat">Browsers</a>
           <a href="#team">Team</a>
-          <a class="btn btn-primary" data-beta-link href="apply.html">Apply for beta</a>
+          <a href="#contact">Contact</a>
         </nav>
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
   <main>
-    <section class="hero">
+    <!-- HERO -->
+    <section class="hero" id="mission">
       <div class="container">
         <div class="hero-grid">
           <div>
             <div class="badge"><span class="dot"></span> Real-time fact-checking + bias detection</div>
-            <h1>See what’s true<br/>before you share it.</h1>
-            <p class="sub">
-              Prism is a lightweight browser extension that scans what you’re reading, surfaces claim-level context,
-              and highlights likely bias — without disrupting your flow.
+
+            <p class="mission">
+              <strong>Our mission:</strong> slow the spread of misinformation and restore critical thinking online.
+              Prism helps people pause, verify, and understand context before they share — making truth easier to find,
+              and manipulation harder to scale.
             </p>
+
+            <h1>See what’s true<br/>before you share it.</h1>
+
+            <p class="sub">
+              Prism is a lightweight browser extension that reads what you’re reading, flags claim-level risk,
+              and gives you the receipts — citations, counter-evidence, and framing signals — without breaking your flow.
+            </p>
+
+            <!-- APPLY BUTTON #1 (only twice on page) -->
             <div class="hero-actions">
-              <a class="btn btn-primary" data-beta-link href="apply.html">Join the beta</a>
+              <a class="btn btn-primary"
+                 href="https://docs.google.com/forms/d/e/1FAIpQLSe4XB8IPpUwa3eAc1XB_o8D0ey1A7yM7cf2rTeTFS2hpgnN7Q/viewform?usp=publish-editor"
+                 target="_blank" rel="noopener">
+                Join the beta
+              </a>
               <a class="btn" href="#how">See how it works</a>
             </div>
+
             <p class="sub" style="margin-top:14px; font-size:13px; color:rgba(234,240,255,.60)">
-              Built for Chrome, Edge, and Firefox (WebExtensions). Google-friendly Manifest V3 architecture.
+              Built for Chrome, Edge, and Firefox using the WebExtensions standard. Designed to stay fast on real pages.
             </p>
+
+            <!-- Scrolling tech photos -->
+            <div class="ribbons" aria-label="Scrolling tech photos">
+              <div class="ribbon-wrap">
+                <div class="ribbon left">
+                  <div class="ribbon-row">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="AI circuitry" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="Cybersecurity visualization" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1535378620166-273708d44e4c?auto=format&fit=crop&w=800&q=80" alt="Data center" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="Code on screen" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1535378620166-273708d44e4c?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+              <div class="ribbon-spacer"></div>
+              <div class="ribbon-wrap">
+                <div class="ribbon right">
+                  <div class="ribbon-row">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" alt="ML model concept" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Developer workstation" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=80" alt="AI network" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1526378722445-cc5c5101a94d?auto=format&fit=crop&w=800&q=80" alt="Security data" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1526378722445-cc5c5101a94d?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
+          <!-- Metrics with animation -->
           <aside class="card metrics" aria-label="Product metrics">
             <div class="metric">
-              <div class="k">92%</div>
-              <div class="l">Claim verification accuracy (beta benchmark)</div>
+              <div class="k">
+                <span class="count" data-count="94">0</span><span class="unit">%</span>
+              </div>
+              <div class="l">Claim verification accuracy (early benchmark)</div>
+              <div class="bar"><span data-bar="94"></span></div>
             </div>
+
             <div class="metric">
-              <div class="k">650ms</div>
-              <div class="l">Median response time per highlighted claim</div>
+              <div class="k">
+                <span class="count" data-count="420">0</span><span class="unit">ms</span>
+              </div>
+              <div class="l">Median “quick scan” overlay latency</div>
+              <div class="bar"><span data-bar="88"></span></div>
             </div>
+
             <div class="metric">
-              <div class="k">1-click</div>
-              <div class="l">Source citations + alternate perspectives</div>
+              <div class="k">
+                <span class="count" data-count="3">0</span><span class="unit">sources</span>
+              </div>
+              <div class="l">Average independent citations per claim</div>
+              <div class="bar"><span data-bar="76"></span></div>
             </div>
+
             <div class="metric">
-              <div class="k">0 spam</div>
-              <div class="l">No ads, no feed, no engagement traps</div>
+              <div class="k">
+                <span class="count" data-count="0">0</span><span class="unit">ads</span>
+              </div>
+              <div class="l">No feeds, no engagement traps, no dark patterns</div>
+              <div class="bar"><span data-bar="100"></span></div>
+            </div>
+
+            <div class="note">
+              Metrics shown are early beta targets/benchmarks and will improve as we expand test coverage across domains.
             </div>
           </aside>
-        </div>
-
-        <div class="media">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80" alt="Abstract AI circuitry" loading="lazy"/>
-          <div class="cap">Fast overlays, clean citations, and a UI that stays out of the way. (Image: illustrative)</div>
         </div>
       </div>
     </section>
 
-    <!-- HOW -->
+    <!-- HOW (more in-depth) -->
     <section id="how" class="section">
       <div class="container">
         <h2 class="section-title">How Prism works</h2>
-        <p class="section-sub">A fast “quick scan” first, then deeper verification when you open details.</p>
+        <p class="section-sub">
+          Prism runs a fast, non-disruptive “quick scan” on-page, then deepens verification only when a claim needs it.
+          The goal is simple: keep you moving, but give you real confidence when something is shaky.
+        </p>
 
-        <div class="grid-3">
-          <div class="feature">
-            <div class="icon">1</div>
-            <h3>Detect claims</h3>
-            <p>Prism identifies factual assertions (not opinions) and chunks long pages for speed.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">2</div>
-            <h3>Verify + score</h3>
-            <p>We cross-reference with trusted sources, score credibility, and surface uncertainty.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">3</div>
-            <h3>Highlight bias</h3>
-            <p>Tone + framing signals help you spot loaded language and one-sided narratives.</p>
-          </div>
-        </div>
+        <div class="how-deep">
+          <div class="stack">
+            <div class="step">
+              <div class="pill">Step 1 · Claim extraction</div>
+              <h3>We detect claims, not opinions.</h3>
+              <p>
+                Prism parses the page you’re viewing and isolates statements that can be verified (numbers, dates,
+                “X happened,” “Y causes Z,” etc.). It ignores most pure opinions and focuses on claims that should have evidence.
+              </p>
+            </div>
 
-        <div class="card strip">
-          <p>
-            <strong>Privacy-first by design.</strong> We minimize what leaves your browser and cache results to reduce requests.
-            For sensitive content, Prism can fall back to on-device checks when possible.
-          </p>
-          <a class="btn btn-primary" data-beta-link href="apply.html">Apply for beta</a>
+            <div class="step">
+              <div class="pill">Step 2 · Quick scan in-browser</div>
+              <h3>Instant risk signals without waiting.</h3>
+              <p>
+                A lightweight on-device pass checks for common red flags: missing sourcing, suspicious certainty,
+                inconsistent numbers, and “copy-paste” misinformation patterns. This enables fast highlighting
+                while deeper checks run only when needed.
+              </p>
+            </div>
+
+            <div class="step">
+              <div class="pill">Step 3 · Retrieval + verification</div>
+              <h3>We cross-check against multiple independent sources.</h3>
+              <p>
+                For flagged claims, Prism retrieves supporting and contradicting references, then summarizes the consensus
+                and uncertainty. You get citations (not vibes), plus a credibility score that reflects evidence quality and agreement.
+              </p>
+            </div>
+
+            <div class="step">
+              <div class="pill">Step 4 · Bias + framing lens</div>
+              <h3>We show how language shapes perception.</h3>
+              <p>
+                Prism detects loaded phrasing, one-sided framing, and omission patterns. It doesn’t “ban” content —
+                it helps you see what’s being implied and what alternative perspectives or missing context might exist.
+              </p>
+            </div>
+          </div>
+
+          <aside class="diagram" aria-label="System diagram">
+            <div class="node">
+              <strong>Browser Extension (Chrome / Edge / Firefox)</strong>
+              <span>Reads page text → extracts claims → renders highlights and a compact side panel.</span>
+            </div>
+            <div class="node">
+              <strong>Quick Scan (On-device)</strong>
+              <span>Fast heuristics for risk + framing signals. Designed to feel instant.</span>
+            </div>
+            <div class="node">
+              <strong>Verification Engine (When needed)</strong>
+              <span>Retrieves independent sources, checks agreement, and produces claim-level citations and uncertainty.</span>
+            </div>
+            <div class="node">
+              <strong>Cache + Privacy Controls</strong>
+              <span>Minimizes repeated requests and keeps the experience snappy. Prism is built to be helpful, not creepy.</span>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -113,59 +406,83 @@
     <section id="compat" class="section">
       <div class="container">
         <h2 class="section-title">Works where you browse</h2>
-        <p class="section-sub">One extension, consistent experience across major browsers.</p>
+        <p class="section-sub">One extension, consistent behavior across the browsers people actually use.</p>
 
         <div class="grid-3">
           <div class="feature">
             <div class="icon">⧉</div>
             <h3>Chrome</h3>
-            <p>Manifest V3 compatible architecture for modern performance and security.</p>
+            <p>Built on the WebExtensions standard with a modern architecture that stays fast on real sites.</p>
           </div>
           <div class="feature">
             <div class="icon">◼</div>
             <h3>Microsoft Edge</h3>
-            <p>Chromium-based support with the same build and release pipeline as Chrome.</p>
+            <p>Chromium compatibility means the same core build and a clean, stable release pipeline.</p>
           </div>
           <div class="feature">
             <div class="icon">🦊</div>
             <h3>Firefox</h3>
-            <p>WebExtensions API support so Prism behaves the same across ecosystems.</p>
+            <p>WebExtensions support so Prism works consistently across ecosystems and user preferences.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TEAM (short) -->
+    <!-- TEAM (with headshots) -->
     <section id="team" class="section">
       <div class="container">
         <h2 class="section-title">Team</h2>
-        <p class="section-sub">Small team, moving fast. Shipping an extension people will actually use.</p>
+        <p class="section-sub">Small team, moving fast — building a tool that helps people think more clearly online.</p>
 
         <div class="team">
           <div class="card person">
-            <div class="avatar">ZH</div>
+            <img class="avatar-img" src="assets/images/zachary_new.png" alt="Zach Hayton headshot" loading="lazy" />
             <div>
               <h4>Zach Hayton</h4>
-              <div class="role">Dev Lead — leading the team building the browser extension</div>
-              <div class="bio">Focused on real-time performance, claim detection, and a clean UX that stays out of the way.</div>
+              <div class="role">Dev Lead — leading the team developing the Prism extension</div>
+              <div class="bio">
+                Focused on claim extraction, verification workflows, and a UI that feels instant and stays out of your way.
+              </div>
             </div>
           </div>
+
           <div class="card person">
-            <div class="avatar">CC</div>
+            <img class="avatar-img" src="assets/images/caseycrop.jpg" alt="Casey headshot" loading="lazy" />
             <div>
-              <h4>Casey</h4>
-              <div class="role">Founder — driving product, partnerships, and early funding</div>
-              <div class="bio">Turning Prism into a scalable platform for safer information consumption across the web.</div>
+              <h4>Casey McCabe</h4>
+              <div class="role">Founder — driving product direction, partnerships, and funding</div>
+              <div class="bio">
+                Building Prism into a scalable platform for safer information consumption across the web.
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="card strip" style="margin-top:14px;">
+    <!-- CONTACT / CTA -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="card cta">
           <p>
-            Want early access and a voice in what we build next? Join the beta and help us tune accuracy,
-            latency, and false positives.
+            We’re actively looking for <strong>funding</strong> and <strong>partnerships</strong> with organizations that care about
+            information integrity, media literacy, and trust online. If you want to collaborate, invest, or pilot Prism with your community,
+            reach out.
           </p>
-          <a class="btn btn-primary" data-beta-link href="apply.html">Join the beta</a>
+
+          <div class="cta-actions">
+            <!-- APPLY BUTTON #2 (only twice on page) -->
+            <a class="btn btn-primary"
+               href="https://docs.google.com/forms/d/e/1FAIpQLSe4XB8IPpUwa3eAc1XB_o8D0ey1A7yM7cf2rTeTFS2hpgnN7Q/viewform?usp=publish-editor"
+               target="_blank" rel="noopener">
+              Apply for beta
+            </a>
+
+            <a class="btn"
+               href="mailto:cmccabe0313@gmail.com?subject=Prism%20-%20Funding%20%2F%20Partnerships">
+              Contact us
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -184,8 +501,50 @@
   </footer>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Metric count-up + bars when visible
+    function animateCount(el, to, duration = 1100){
+      const start = 0;
+      const t0 = performance.now();
+      const isInt = Number.isInteger(to);
+
+      function tick(now){
+        const p = Math.min(1, (now - t0) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = start + (to - start) * eased;
+        el.textContent = isInt ? Math.round(val) : val.toFixed(1);
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const metrics = document.querySelector('.metrics');
+      if(!metrics) return;
+
+      const counts = metrics.querySelectorAll('.count');
+      const bars = metrics.querySelectorAll('[data-bar]');
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(!entry.isIntersecting) return;
+
+          counts.forEach(c => animateCount(c, Number(c.getAttribute('data-count'))));
+          bars.forEach(b => {
+            const pct = Number(b.getAttribute('data-bar'));
+            b.style.width = Math.max(0, Math.min(100, pct)) + '%';
+          });
+
+          io.disconnect();
+        });
+      }, { threshold: 0.35 });
+
+      io.observe(metrics);
+    });
   </script>
+
   <script src="js/main.js"></script>
 </body>
 </html>
