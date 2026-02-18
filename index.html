@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prism — Real-time Misinformation Defense</title>
+  <meta name="description" content="Prism is a cross‑browser extension that flags questionable claims, highlights bias and framing signals, and provides citations you can trust." />
+  <link rel="icon" href="assets/images/prism-logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/prism.css" />
+</head>
+
+<body>
+  <!-- NAV (keep clean; no apply button here so we only have 2 total on the page) -->
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="index.html" aria-label="Prism home">
+          <img src="assets/images/prism-logo.svg" alt="Prism" />
+          <span>Prism</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#mission">Mission</a>
+          <a href="#how">How it works</a>
+          <a href="#metrics">Metrics</a>
+          <a href="#compat">Browsers</a>
+          <a href="#team">Team</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO (visual, slideshow like 180) -->
+    <section class="hero2" aria-label="Prism hero">
+      <div id="heroBg" class="hero2-bg" aria-hidden="true"></div>
+      <div class="hero2-overlay" aria-hidden="true"></div>
+
+      <div class="hero2-content">
+        <div class="container">
+          <div class="badge"><span class="dot"></span> Real-time fact-checking + bias detection</div>
+
+          <h1>Restore critical thinking<br/>where misinformation spreads.</h1>
+
+          <p class="sub" style="max-width: 68ch;">
+            <strong>Our mission:</strong> slow the spread of misinformation and make truth easier to find.
+            Prism adds a clarity layer to the web — it flags questionable claims, explains what’s missing,
+            and links you to stronger sources in one click.
+          </p>
+
+          <div class="hero-actions">
+            <!-- APPLY BUTTON #1 (only twice on the page) -->
+            <a class="btn btn-primary" data-beta-link href="apply.html">Join the beta</a>
+            <a class="btn" href="#how">See how it works</a>
+          </div>
+
+          <div class="hero2-mini">
+            <div class="mini">
+              <div class="mini-k">Cross-browser</div>
+              <div class="mini-v">Chrome · Edge · Firefox</div>
+            </div>
+            <div class="mini">
+              <div class="mini-k">Designed for speed</div>
+              <div class="mini-v">Low-latency overlays</div>
+            </div>
+            <div class="mini">
+              <div class="mini-k">Citations first</div>
+              <div class="mini-v">Evidence + counter-evidence</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero2-dots" id="heroDots" aria-hidden="true">
+        <span class="active"></span><span></span><span></span><span></span>
+      </div>
+    </section>
+
+    <!-- MISSION -->
+    <section id="mission" class="section">
+      <div class="container">
+        <div class="two">
+          <div>
+            <h2 class="section-title">A noble goal, built into your daily browsing.</h2>
+            <p class="section-sub" style="text-align:left; max-width: 70ch;">
+              The internet rewards speed and certainty. Prism rewards evidence.
+              We help people pause, verify, and understand context — without turning research into a full-time job.
+            </p>
+
+            <div class="grid-3" style="margin-top:18px;">
+              <div class="feature">
+                <div class="icon">✓</div>
+                <h3>Claim-level checks</h3>
+                <p>We detect verifiable statements and separate them from opinions and rhetoric.</p>
+              </div>
+              <div class="feature">
+                <div class="icon">≋</div>
+                <h3>Bias + framing</h3>
+                <p>Spot loaded language, missing context, and one-sided narratives.</p>
+              </div>
+              <div class="feature">
+                <div class="icon">↗</div>
+                <h3>Better sources</h3>
+                <p>One click to citations, alternate perspectives, and confidence indicators.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="media2">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=80" alt="Abstract circuitry" loading="lazy" />
+            <div class="cap">Prism surfaces context inline — fast, clean, and readable.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how" class="section">
+      <div class="container">
+        <h2 class="section-title">How Prism works</h2>
+        <p class="section-sub">Simple in the moment. Serious under the hood.</p>
+
+        <div class="how-grid">
+          <div class="card step">
+            <div class="step-h">
+              <span class="step-n">1</span>
+              <h3>Extract claims</h3>
+            </div>
+            <p>Prism identifies statements that can be verified (numbers, dates, causal claims, “X happened”).</p>
+          </div>
+
+          <div class="card step">
+            <div class="step-h">
+              <span class="step-n">2</span>
+              <h3>Quick scan (fast)</h3>
+            </div>
+            <p>A lightweight pass flags weak sourcing, suspicious certainty, and internal inconsistencies.</p>
+          </div>
+
+          <div class="card step">
+            <div class="step-h">
+              <span class="step-n">3</span>
+              <h3>Verify with receipts</h3>
+            </div>
+            <p>When you open details, Prism cross-checks multiple sources and returns citations + uncertainty.</p>
+          </div>
+
+          <div class="card step">
+            <div class="step-h">
+              <span class="step-n">4</span>
+              <h3>Explain the framing</h3>
+            </div>
+            <p>We highlight bias signals and missing context so you can judge the claim in full.</p>
+          </div>
+        </div>
+
+        <div class="media2" style="margin-top:16px;">
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1800&q=80" alt="Security visualization" loading="lazy" />
+          <div class="cap">Designed to stay out of the way: compact overlays, clear UI, zero clutter.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS (animated) -->
+    <section id="metrics" class="section">
+      <div class="container">
+        <h2 class="section-title">Early beta benchmarks</h2>
+        <p class="section-sub">Targets we’re building toward as we expand testing coverage.</p>
+
+        <div class="card metrics2" data-metrics>
+          <div class="m">
+            <div class="m-top">
+              <div class="m-k"><span class="m-num" data-count="94">0</span><span class="m-unit">%</span></div>
+              <div class="m-l">Claim verification accuracy</div>
+            </div>
+            <div class="bar"><span data-bar="94"></span></div>
+          </div>
+
+          <div class="m">
+            <div class="m-top">
+              <div class="m-k"><span class="m-num" data-count="420">0</span><span class="m-unit">ms</span></div>
+              <div class="m-l">Median overlay response time</div>
+            </div>
+            <div class="bar"><span data-bar="88"></span></div>
+          </div>
+
+          <div class="m">
+            <div class="m-top">
+              <div class="m-k"><span class="m-num" data-count="3">0</span><span class="m-unit">sources</span></div>
+              <div class="m-l">Avg independent citations per claim</div>
+            </div>
+            <div class="bar"><span data-bar="76"></span></div>
+          </div>
+
+          <div class="m">
+            <div class="m-top">
+              <div class="m-k"><span class="m-num" data-count="0">0</span><span class="m-unit">ads</span></div>
+              <div class="m-l">No feeds, no engagement traps</div>
+            </div>
+            <div class="bar"><span data-bar="100"></span></div>
+          </div>
+
+          <div class="m-note">Numbers are early targets/benchmarks for the beta and will be refined with broader evaluation.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPAT -->
+    <section id="compat" class="section">
+      <div class="container">
+        <h2 class="section-title">Works where you browse</h2>
+        <p class="section-sub">One extension, consistent experience across major browsers.</p>
+
+        <div class="grid-3">
+          <div class="feature">
+            <div class="icon">⧉</div>
+            <h3>Chrome</h3>
+            <p>Manifest V3 compatible architecture for modern performance and security.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">◼</div>
+            <h3>Microsoft Edge</h3>
+            <p>Chromium-based support with the same build and release pipeline as Chrome.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">🦊</div>
+            <h3>Firefox</h3>
+            <p>WebExtensions API support so Prism behaves the same across ecosystems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM (big visuals + bios under) -->
+    <section id="team" class="section">
+      <div class="container">
+        <h2 class="section-title">Team</h2>
+        <p class="section-sub">Two-person founding team. Shipping fast, testing hard, iterating weekly.</p>
+
+        <div class="team2">
+          <div class="card profile">
+            <img class="profile-img" src="assets/images/zachary_new.png" alt="Zach Hayton" />
+            <div class="profile-body">
+              <h3>Zach Hayton</h3>
+              <div class="profile-role">Dev Lead</div>
+              <p>Leading the team developing the Prism extension — focused on real-time performance, claim detection, and a clean UX.</p>
+            </div>
+          </div>
+
+          <div class="card profile">
+            <img class="profile-img" src="assets/images/caseycrop.jpg" alt="Casey McCabe" />
+            <div class="profile-body">
+              <h3>Casey McCabe</h3>
+              <div class="profile-role">Founder</div>
+              <p>Driving funding, partnerships, and product direction — building Prism into a scalable platform for information integrity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="card contact">
+          <div>
+            <h2 class="section-title" style="text-align:left; margin-bottom:8px;">Funding + partnerships</h2>
+            <p class="section-sub" style="text-align:left; margin:0; max-width: 78ch;">
+              We’re actively looking for funding and partnerships with organizations that care about information integrity,
+              media literacy, and trust online.
+            </p>
+          </div>
+
+          <div class="contact-actions">
+            <!-- APPLY BUTTON #2 (only twice on the page) -->
+            <a class="btn btn-primary" data-beta-link href="apply.html">Apply for beta</a>
+            <a class="btn" href="mailto:cmccabe0313@gmail.com?subject=Prism%20-%20Funding%20%2F%20Partnerships">Contact us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="brand" style="gap:10px; opacity:.9;">
+          <img src="assets/images/prism-logo.svg" alt="Prism" />
+          <span>Prism</span>
+        </div>
+        <div class="small">© <span id="y"></span> Prism. Built for clarity, not clicks.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
