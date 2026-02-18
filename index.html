@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prism — Real-time Fact-Checking + Bias Detection</title>
+  <meta name="description" content="Prism is a lightweight browser extension that flags questionable claims, highlights potential bias, and links you to better sources—instantly." />
+  <link rel="icon" href="assets/images/prism-logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/prism.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="index.html" aria-label="Prism home">
+          <img src="assets/images/prism-logo.svg" alt="Prism" />
+          <span>Prism</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#how">How it works</a>
+          <a href="#compat">Browsers</a>
+          <a href="#team">Team</a>
+          <a class="btn btn-primary" data-beta-link href="apply.html">Apply for beta</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="badge"><span class="dot"></span> Real-time fact-checking + bias detection</div>
+            <h1>See what’s true<br/>before you share it.</h1>
+            <p class="sub">
+              Prism is a lightweight browser extension that scans what you’re reading, surfaces claim-level context,
+              and highlights likely bias — without disrupting your flow.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" data-beta-link href="apply.html">Join the beta</a>
+              <a class="btn" href="#how">See how it works</a>
+            </div>
+            <p class="sub" style="margin-top:14px; font-size:13px; color:rgba(234,240,255,.60)">
+              Built for Chrome, Edge, and Firefox (WebExtensions). Google-friendly Manifest V3 architecture.
+            </p>
+          </div>
+
+          <aside class="card metrics" aria-label="Product metrics">
+            <div class="metric">
+              <div class="k">92%</div>
+              <div class="l">Claim verification accuracy (beta benchmark)</div>
+            </div>
+            <div class="metric">
+              <div class="k">650ms</div>
+              <div class="l">Median response time per highlighted claim</div>
+            </div>
+            <div class="metric">
+              <div class="k">1-click</div>
+              <div class="l">Source citations + alternate perspectives</div>
+            </div>
+            <div class="metric">
+              <div class="k">0 spam</div>
+              <div class="l">No ads, no feed, no engagement traps</div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="media">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80" alt="Abstract AI circuitry" loading="lazy"/>
+          <div class="cap">Fast overlays, clean citations, and a UI that stays out of the way. (Image: illustrative)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how" class="section">
+      <div class="container">
+        <h2 class="section-title">How Prism works</h2>
+        <p class="section-sub">A fast “quick scan” first, then deeper verification when you open details.</p>
+
+        <div class="grid-3">
+          <div class="feature">
+            <div class="icon">1</div>
+            <h3>Detect claims</h3>
+            <p>Prism identifies factual assertions (not opinions) and chunks long pages for speed.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">2</div>
+            <h3>Verify + score</h3>
+            <p>We cross-reference with trusted sources, score credibility, and surface uncertainty.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">3</div>
+            <h3>Highlight bias</h3>
+            <p>Tone + framing signals help you spot loaded language and one-sided narratives.</p>
+          </div>
+        </div>
+
+        <div class="card strip">
+          <p>
+            <strong>Privacy-first by design.</strong> We minimize what leaves your browser and cache results to reduce requests.
+            For sensitive content, Prism can fall back to on-device checks when possible.
+          </p>
+          <a class="btn btn-primary" data-beta-link href="apply.html">Apply for beta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPAT -->
+    <section id="compat" class="section">
+      <div class="container">
+        <h2 class="section-title">Works where you browse</h2>
+        <p class="section-sub">One extension, consistent experience across major browsers.</p>
+
+        <div class="grid-3">
+          <div class="feature">
+            <div class="icon">⧉</div>
+            <h3>Chrome</h3>
+            <p>Manifest V3 compatible architecture for modern performance and security.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">◼</div>
+            <h3>Microsoft Edge</h3>
+            <p>Chromium-based support with the same build and release pipeline as Chrome.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">🦊</div>
+            <h3>Firefox</h3>
+            <p>WebExtensions API support so Prism behaves the same across ecosystems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM (short) -->
+    <section id="team" class="section">
+      <div class="container">
+        <h2 class="section-title">Team</h2>
+        <p class="section-sub">Small team, moving fast. Shipping an extension people will actually use.</p>
+
+        <div class="team">
+          <div class="card person">
+            <div class="avatar">ZH</div>
+            <div>
+              <h4>Zach Hayton</h4>
+              <div class="role">Dev Lead — leading the team building the browser extension</div>
+              <div class="bio">Focused on real-time performance, claim detection, and a clean UX that stays out of the way.</div>
+            </div>
+          </div>
+          <div class="card person">
+            <div class="avatar">CC</div>
+            <div>
+              <h4>Casey</h4>
+              <div class="role">Founder — driving product, partnerships, and early funding</div>
+              <div class="bio">Turning Prism into a scalable platform for safer information consumption across the web.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card strip" style="margin-top:14px;">
+          <p>
+            Want early access and a voice in what we build next? Join the beta and help us tune accuracy,
+            latency, and false positives.
+          </p>
+          <a class="btn btn-primary" data-beta-link href="apply.html">Join the beta</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="brand" style="gap:10px; opacity:.9;">
+          <img src="assets/images/prism-logo.svg" alt="Prism" />
+          <span>Prism</span>
+        </div>
+        <div class="small">© <span id="y"></span> Prism. Built for clarity, not clicks.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
